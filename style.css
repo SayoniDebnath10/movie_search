@@ -78,6 +78,8 @@ main{
     font-weight: 600;
 }
 .movie-grids{
+    max-height: 100%;
+    max-width: 100%;
 
     display:grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
