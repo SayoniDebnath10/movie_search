@@ -7,10 +7,13 @@ searchform.addEventListener("submit",async function(event){
         alert("Enter Movie Name! ")        
         return;
     } 
+    const container=document.querySelector(".movie-grids");
+    container.innerHTML="<h1>Loading......</h1>"
     const url=`https://www.omdbapi.com/?apikey=373a4f7b&s=${encodeURIComponent(moviename)}`;
+
     const response=await fetch(url);
     const data =await response.json();
-    const container=document.querySelector(".movie-grids");
+    
     container.innerHTML="";
     if(data.Response=="False"){
         container.innerHTML=`<div class="failed">
@@ -44,6 +47,47 @@ searchform.addEventListener("submit",async function(event){
         moviegrid.appendChild(watchlistbtn);
 
         container.appendChild(moviegrid);
+
+        watchlistbtn.addEventListener("click",function(){
+            saveList(movie);
+
+
+        });
+
+        
+               
+        function saveList(movie){
+            const movieobj={
+                    poster: movie.Poster,
+                    title: movie.Title,
+                    year: movie.Year,
+                    imdbID: movie.imdbID,
+                    type: movie.Type
+
+                };
+            const listdata=localStorage.getItem("watchlist");
+            let watchlist;
+            if(!listdata){
+                watchlist=[];               
+
+            }
+            else{
+                watchlist=JSON.parse(listdata);
+                const check=watchlist.some(function(savedmovie){
+                    return savedmovie.imdbID===movie.imdbID;
+                });
+                    if(check){
+                        alert("Already Added In Watchlist!");
+                        
+                        return;
+                    }                     
+            }
+            watchlist.push(movieobj);
+                localStorage.setItem("watchlist",JSON.stringify(watchlist));
+                watchlistbtn.textContent="Remove From Watchlist";
+
+
+        }
 
     
     showmorebtn.addEventListener("click", async function(){
