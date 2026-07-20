@@ -56,11 +56,12 @@ footer{
     display: flex;
     justify-content: space-around;
     align-items: center;
-    padding:10px;
+    padding:30px;
+    font-size: x-large;
 }
 p{
     font-weight: 800;
-    font-size: small;
+    font-size: large;
 }
 main{
     background-color: black;
@@ -197,6 +198,14 @@ background-color: white;
 }
 .removebtn:hover{
     background-color:#520b0b ;
+    transform: translateY(-2px);
+}
+.addedbtn{
+    background-color:#125083 ;
+    color: white;
+}
+.addedbtn:hover{
+     background-color:#125083 ;
     transform: translateY(-2px);
 }
 

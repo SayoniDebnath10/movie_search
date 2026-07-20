@@ -35,8 +35,22 @@ searchform.addEventListener("submit",async function(event){
         showmorebtn.className="showmore-btn";
         showmorebtn.textContent="Show Details";
         watchlistbtn.className="watchlist-btn";
-        watchlistbtn.textContent="Add To Watchlist";
+const watchlist = JSON.parse(localStorage.getItem("watchlist")) || [];
+
+const exists = watchlist.some(function(savedmovie){
+    return savedmovie.imdbID === movie.imdbID;
+});
+
+if(exists){
+    watchlistbtn.textContent = "✓ Already Added";
+    watchlistbtn.disabled = true;
+    watchlistbtn.classList.add("addedbtn");
+}
+else{
+    watchlistbtn.textContent = "Add To Watchlist";
+}
         moviegrid.className="movie-card";
+
         moviegrid.innerHTML=`
         <img src="${movie.Poster}" alt="${movie.Title}">
         <div>
@@ -86,8 +100,8 @@ searchform.addEventListener("submit",async function(event){
             }
             watchlist.push(movieobj);
                 localStorage.setItem("watchlist",JSON.stringify(watchlist));
-                watchlistbtn.textContent="Remove From Watchlist";
-                watchlistbtn.className="removebtn";
+                watchlistbtn.textContent="✓ Already Added ";
+                watchlistbtn.className="addedbtn";
 
 
         }
