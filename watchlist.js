@@ -26,7 +26,7 @@ function loadWatchList(){
         <h3>${movie.title}</h3>
         <p>${movie.year}</p>
         <p>${movie.type}</p>
-        <div>`
+        </div>`
         ;
         moviegrid.appendChild(removebtn);
          container.appendChild(moviegrid);

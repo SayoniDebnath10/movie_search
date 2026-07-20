@@ -28,6 +28,8 @@ searchform.addEventListener("submit",async function(event){
     for(let movie of movies){
         
         const moviegrid= document.createElement("div");
+        const buttonbox=document.createElement("div");
+        buttonbox.className="button-box";
         const watchlistbtn=document.createElement("button");
         const showmorebtn=document.createElement("button");
         showmorebtn.className="showmore-btn";
@@ -43,8 +45,9 @@ searchform.addEventListener("submit",async function(event){
         <p>${movie.Type}</p>
         <div>`
         ;
-        moviegrid.appendChild(showmorebtn);
-        moviegrid.appendChild(watchlistbtn);
+        buttonbox.appendChild(showmorebtn);
+        buttonbox.appendChild(watchlistbtn);
+        moviegrid.appendChild(buttonbox);
 
         container.appendChild(moviegrid);
 
@@ -77,7 +80,6 @@ searchform.addEventListener("submit",async function(event){
                     return savedmovie.imdbID===movie.imdbID;
                 });
                     if(check){
-                        alert("Already Added In Watchlist!");
                         
                         return;
                     }                     
@@ -85,6 +87,7 @@ searchform.addEventListener("submit",async function(event){
             watchlist.push(movieobj);
                 localStorage.setItem("watchlist",JSON.stringify(watchlist));
                 watchlistbtn.textContent="Remove From Watchlist";
+                watchlistbtn.className="removebtn";
 
 
         }
@@ -96,12 +99,14 @@ searchform.addEventListener("submit",async function(event){
         const details=await response.json();
         const modal=document.querySelector(".modal-container");
         const modaldetails=document.querySelector(".modal-details"); 
+        modaldetails.className="modal-details";
         modal.style.display="flex";
         modaldetails.innerHTML=`
-        <img src="${details.Poster}">
+        <img src="${details.Poster}" alt="">
+        
         <h2>${details.Title}</h2>
-        <p>${details.Year}</p><br>
-        <p><b>Genre<b>: ${details.Genre}</p><br>
+        <h3>${details.Year}</h3><br>
+        <p>Genre: ${details.Genre}</p><br>
         <p>Language: ${details.Language}</p><br>
         <p>Rated: ${details.Rated}</p><br>
         <p>Released: ${details.Released}</p><br>
@@ -137,3 +142,4 @@ searchform.addEventListener("submit",async function(event){
 }
     
 });
+
